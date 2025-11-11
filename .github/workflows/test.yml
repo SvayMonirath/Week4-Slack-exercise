@@ -1,0 +1,19 @@
+name: C/C++ Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build tools
+        run: sudo apt-get update && sudo apt-get install -y build-essential g++
+      - name: Build tests
+        run: g++ -std=c++11 tests.cpp -o tests
+      - name: Run tests
+        run: ./tests
